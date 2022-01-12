@@ -11,6 +11,7 @@ class User(AbstractUser):
     is_mentor = models.BooleanField(default=False)
 
 class Mentor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     first_name = models.CharField(max_length=30)
     second_name = models.CharField(max_length=40)
     education_level = models.CharField(max_length=20)
@@ -18,7 +19,6 @@ class Mentor(models.Model):
     contact_email = models.EmailField()
     tel_number = models.IntegerField()
     staff_number = models.CharField(max_length=20,unique=True,null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
  
     def __str__(self):
         return self.first_name
@@ -31,10 +31,11 @@ class Mentor(models.Model):
     
 
 class Learner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     first_name = models.CharField(max_length=10)
     second_name = models.CharField(max_length=10, blank=True)
     last_name = models.CharField(max_length=10)
-    date_enrolled = models.DateTimeField()
+    date_enrolled = models.DateTimeField(null=True)
     contact_email = models.EmailField(null=True)
     tel_number = models.IntegerField(null=True)
     mentor = models.ForeignKey(Mentor,on_delete=models.CASCADE,null=True)
