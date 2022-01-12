@@ -17,6 +17,7 @@ class Mentor(models.Model):
     location_address = models.CharField(max_length=20)
     contact_email = models.EmailField()
     tel_number = models.IntegerField()
+    staff_number = models.CharField(max_length=20,unique=True,null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
  
     def __str__(self):
@@ -34,6 +35,8 @@ class Learner(models.Model):
     second_name = models.CharField(max_length=10, blank=True)
     last_name = models.CharField(max_length=10)
     date_enrolled = models.DateTimeField()
+    contact_email = models.EmailField(null=True)
+    tel_number = models.IntegerField(null=True)
     mentor = models.ForeignKey(Mentor,on_delete=models.CASCADE,null=True)
 
     def _str_(self):
