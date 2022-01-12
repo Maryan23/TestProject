@@ -35,7 +35,7 @@ class Learner(models.Model):
     first_name = models.CharField(max_length=10)
     second_name = models.CharField(max_length=10, blank=True)
     last_name = models.CharField(max_length=10)
-    date_enrolled = models.DateTimeField(null=True)
+    date_enrolled = models.DateTimeField(auto_now_add=True,null=True)
     contact_email = models.EmailField(null=True)
     tel_number = models.IntegerField(null=True)
     mentor = models.ForeignKey(Mentor,on_delete=models.CASCADE,null=True)
