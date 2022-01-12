@@ -20,7 +20,9 @@ class LearnerSignUpForm(UserCreationForm):
         user.email = self.cleaned_data.get('email')
         user.save()
         learner = Learner.objects.create(user=user)
-        return user
+        learner.first_name = self.cleaned_data.get('first_name')
+        learner.last_name = self.cleaned_data.get('last_name')
+        return learner
 
 class MentorSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
@@ -41,6 +43,7 @@ class MentorSignUpForm(UserCreationForm):
         mentor.first_name = self.cleaned_data.get('first_name')
         mentor.second_name = self.cleaned_data.get('last_name')
         mentor.tel_number = self.cleaned_data.get('tel_number')
+        mentor.staff_number = self.cleaned_data.get('stuff_number')
         mentor.save()
 
         return mentor
