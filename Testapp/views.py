@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import LearnerSignUpForm
+from .forms import LearnerSignUpForm,MentorSignUpForm
 from .models import *
 from django.contrib.auth import login
 from django.views.generic import CreateView
@@ -19,6 +19,20 @@ class LearnerSignUpView(CreateView):
 
     def get_context_data(self, **kwargs):
         kwargs ['user_type'] = 'learner'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        # login(self.request, user)
+        return redirect('index')
+
+class MentorSignUpView(CreateView):
+    model = User
+    form_class =MentorSignUpForm
+    template_name = 'signup.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs ['user_type'] = 'mentor'
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):

@@ -13,11 +13,11 @@ class User(AbstractUser):
 class Mentor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     first_name = models.CharField(max_length=30)
-    second_name = models.CharField(max_length=40)
+    second_name = models.CharField(max_length=40,null=True)
     education_level = models.CharField(max_length=20)
     location_address = models.CharField(max_length=20)
     contact_email = models.EmailField()
-    tel_number = models.IntegerField()
+    tel_number = models.IntegerField(null=True)
     staff_number = models.CharField(max_length=20,unique=True,null=True)
  
     def __str__(self):
@@ -41,7 +41,7 @@ class Learner(models.Model):
     mentor = models.ForeignKey(Mentor,on_delete=models.CASCADE,null=True)
 
     def _str_(self):
-        return self.first_name 
+        return self.user.username
     
     def save_learner(self):
         self.save()
